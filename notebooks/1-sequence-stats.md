@@ -7,6 +7,7 @@ I downloaded the coronavirus geneomes from NCBI
 ```julia
 using BioinformaticsBISC195
 genomes = parse_fasta("data/CoV_sequences.fasta") #compliles all of the genomes into 2 vectors (second vector contains sequences)
+end
 ```
 
 ```julia
