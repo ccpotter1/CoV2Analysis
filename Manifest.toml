@@ -1,11 +1,5 @@
 # This file is machine-generated - editing it directly is not advised
 
-[[Assignment07]]
-deps = ["BioSequences"]
-path = "/Users/cassiepotter/Documents/bisc195/BioinformaticsBISC195"
-uuid = "67893044-1481-44cf-8ab6-de350e09ee4e"
-version = "0.1.0"
-
 [[Automa]]
 deps = ["DataStructures", "Printf", "Random", "Test", "TranscodingStreams"]
 git-tree-sha1 = "c81526bf5f6fb4616b4e22a3cd62ac20e255fd3c"
@@ -32,6 +26,12 @@ deps = ["Automa"]
 git-tree-sha1 = "ec77888ac3e78f9d372c2b533bdb52668f9e2b09"
 uuid = "3c28c6f8-a34d-59c4-9654-267d177fcfa9"
 version = "4.0.4"
+
+[[BioinformaticsBISC195]]
+deps = ["BioSequences"]
+path = "/Users/cassiepotter/Documents/bisc195/BioinformaticsBISC195"
+uuid = "67893044-1481-44cf-8ab6-de350e09ee4e"
+version = "0.1.0"
 
 [[Combinatorics]]
 git-tree-sha1 = "08c8b6831dc00bfea825826be0bc8336fc369860"
