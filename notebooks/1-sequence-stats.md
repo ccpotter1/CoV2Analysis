@@ -96,14 +96,25 @@ now the sequences in genomes[2] all have at least 29,500 bp
 
 I ran <histogram(seq_length(genomes[2]))>  and <plot!(legend=false, xaxis="Genome Length", yaxis="Number of Genomes",title="CoV Genomes")> again to get a new plot that didn't include the short genomes
 
+I made the function unique_kmer_vector so that the unique_kmers function in Bioinformatics BISC195 can work on vectors since genomes[2] is a vector
 
 ```julia
 using BioinformaticsBISC195 
 function unique_kmer_vector(vector, k) 
 kmervector=[]
     for sequence in vector
-        push!(kmervector, unique_kmers(sequence, k))
+        append!(kmervector, unique_kmers(sequence, k)) #unique kmers returns a vector called kmers of all the kmers so append! takes the contents of the kmers vector and puts them in the kmervecotr vector
     end
 return unique(kmervector)
 end 
 ```
+I ran ```Julia unique_kmer_vector(genomes[2], 3) ``` to get a vector with all of the unique kmers of length 3 
+
+To test my kmerset_distance function that I added to BioinformaticsBISC195, I created two Sets of kmers
+
+```julia
+kmerset1 = Set(["ATTG", "GTCC", "ATCG", "CGGT"])
+kmerset2 = Set(["ATTT", "GTAC", "ATAG", "CGGT"])
+```
+
+the distance between these two kmer sets is 0.8571428571428572
