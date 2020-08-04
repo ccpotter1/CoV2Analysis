@@ -4,10 +4,12 @@
 I downloaded the coronavirus geneomes from NCBI
 (see `data/data.md` for more details)
 
+First I made a vector with two indices: genome headers (genomes[1]) and genome sequences (genomes[2])
 ```julia
 using BioinformaticsBISC195
 genomes = parse_fasta("data/CoV_sequences.fasta") #compliles all of the genomes into 2 vectors (second vector contains sequences)
 ```
+I then created a fucntion that finds the length of each genome
 
 ```julia
 function seq_length(vector) #turns sequence vector into a vector containing the sequence lengths 
@@ -18,6 +20,7 @@ function seq_length(vector) #turns sequence vector into a vector containing the 
     return length_vector
 end
 ```
+I did statistics on the genome lengths 
 
 ```julia
 using Statistics
@@ -42,7 +45,7 @@ function gc_contentvector(vector) #does gc_content on each part of the vector (b
     return gcvector
 end
 ```
-
+found out more about the genomes by doing statistics on the GC content  
 ```julia
 using Statistics
 mean_GC_content = mean(gc_contentvector(genomes[2])) #calculate mean gc content of all of the sequences
@@ -65,14 +68,34 @@ max_length = maximum(seq_length(genomes[2])) #find length of longest sequence
 ```
 maximum length = 30484
 
+after calculating the minimum and maximum genome lengths, i plotted all of the genome lengths using a histogram plot
+
 ```julia
+using Plots
 histogram(seq_length(genomes[2])) #makes histogram of all the sequence lengths of the cov genomes
 ```
-I first made a plot using all of the genomes and then used the remove_short_genomes function to get rid of all genomes that had less then 30000 base pairs. I then made a plot using only the genomes longer than 300000 bp.
 
 ```julia
 plot!(legend=false, xaxis="Genome Length", yaxis="Number of Genomes",title="CoV Genomes") #remove the legend from the graph and creates axis labels and title
 ```
+I first made a plot using all of the genomes and then used the remove_short_genomes function to get rid of all genomes that had less then 29500 base pairs. I then made a plot using only the genomes longer than 300000 bp.
+
+Since all of the genomes were longer than 29,000 bp, I removed all genomes that were shorter than 29,500 bp. 
+
+```julia
+function myisless(x)
+    return length(x)< 29500 
+end
+```
+```julia
+shortgenomes = findall(myisless, genomes[2]) #creates array with the indicies of genomes that are less than 30,000 bp
+deleteat!(genomes[2], shortgenomes) #removes the short genomes from the seq vector
+deleteat!(genomes[1], shortgenomes) #removes the short genomes from the header vector 
+```
+now the sequences in genomes[2] all have at least 29,500 bp
+
+I ran <histogram(seq_length(genomes[2]))>  and <plot!(legend=false, xaxis="Genome Length", yaxis="Number of Genomes",title="CoV Genomes")> again to get a new plot that didn't include the short genomes
+
 
 ```julia
 using BioinformaticsBISC195 
@@ -81,6 +104,6 @@ kmervector=[]
     for sequence in vector
         push!(kmervector, unique_kmers(sequence, k))
     end
-return kmervector
+return unique(kmervector)
 end 
 ```
