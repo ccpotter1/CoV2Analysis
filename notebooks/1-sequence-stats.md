@@ -7,7 +7,6 @@ I downloaded the coronavirus geneomes from NCBI
 ```julia
 using BioinformaticsBISC195
 genomes = parse_fasta("data/CoV_sequences.fasta") #compliles all of the genomes into 2 vectors (second vector contains sequences)
-end
 ```
 
 ```julia
@@ -23,14 +22,13 @@ end
 ```julia
 using Statistics
 meanlength= mean(seq_length(genomes[2])) #calculate mean length of the genomes
-end
 ```
 mean length= 29846.103770063455
 
 ```julia
 using Statistics
 stdlength = std(seq_length(genomes[2])) #calculate standard deviation of the genome lengths
-end
+
 ```
 standard deviation = 91.03981035873902
 
@@ -48,42 +46,40 @@ end
 ```julia
 using Statistics
 mean_GC_content = mean(gc_contentvector(genomes[2])) #calculate mean gc content of all of the sequences
-end
 ```
 mean gc content = 0.38300315232210846
 
 ```julia
 using Statistics
 std_GC_content = std(gc_contentvector(genomes[2])) #calculate standard deviation of gc contents of all of the sequences
-end
 ```
 standard deviation of gc content = 0.009368618726296365
 
 ```julia
 min_length= minimum(seq_length(genomes[2])) #find length of shortest sequence
-end
 ```
 minimum length = 29013
 
 ```julia
 max_length = maximum(seq_length(genomes[2])) #find length of longest sequence
-end
 ```
 maximum length = 30484
 
 ```julia
 histogram(seq_length(genomes[2])) #makes histogram of all the sequence lengths of the cov genomes
 ```
+I first made a plot using all of the genomes and then used the remove_short_genomes function to get rid of all genomes that had less then 30000 base pairs. I then made a plot using only the genomes longer than 300000 bp.
+
 ```julia
-plot!(legend=false, xaxis="Genome Length", yaxis="Number of Genomes") #remove the legend from the graph and creates axis labels
+plot!(legend=false, xaxis="Genome Length", yaxis="Number of Genomes",title="CoV Genomes") #remove the legend from the graph and creates axis labels and title
 ```
 
 ```julia
-using Bioinformatics 
+using BioinformaticsBISC195 
 function unique_kmer_vector(vector, k) 
 kmervector=[]
-    for i in vector
-        push!(kmervector, unique_kmers(i, k))
+    for sequence in vector
+        push!(kmervector, unique_kmers(sequence, k))
     end
 return kmervector
 end 
